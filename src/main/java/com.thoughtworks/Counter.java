@@ -8,7 +8,10 @@ public class Counter {
 
   public String fizzBuzz(int position) {
     StringBuilder result = new StringBuilder();
-    if (position % 3 == 0 || (position + "").contains("3")) {
+    if ((position + "").contains("3")) {
+      return FIZZ;
+    }
+    if (position % 3 == 0) {
       result.append(FIZZ);
     }
     if (position % 5 == 0) {
