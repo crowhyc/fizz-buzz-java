@@ -53,4 +53,10 @@ public class CounterTest {
   public void return_Fizz_for_35() {
     assertThat(counter.fizzBuzz(35), is(Counter.BUZZ));
   }
+
+  @Test
+  public void return_Whizz_for_75()
+  {
+    assertThat(counter.fizzBuzz(75),is(Counter.WHIZZ));
+  }
 }

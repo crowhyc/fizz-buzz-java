@@ -8,10 +8,13 @@ public class Counter {
 
   public String fizzBuzz(int position) {
     StringBuilder result = new StringBuilder();
-    if ((position + "").contains("5")) {
+    String pos = position + "";
+    if (pos.contains("7")) {
+      return WHIZZ;
+    } else if (pos.contains("5")) {
       return BUZZ;
     } else {
-      if ((position + "").contains("3")) {
+      if (pos.contains("3")) {
         return FIZZ;
       } else {
         if (position % 3 == 0) {
@@ -26,7 +29,7 @@ public class Counter {
       }
     }
     if (result.length() == 0) {
-      return position + "";
+      return pos;
     }
     return result.toString();
   }
