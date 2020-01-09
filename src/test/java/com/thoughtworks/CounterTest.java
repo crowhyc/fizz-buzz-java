@@ -28,4 +28,9 @@ public class CounterTest {
   public void return_1_for_1() {
     assertThat(counter.fizzBuzz(1), is("1"));
   }
+
+  @Test
+  public void return_fizzBuzz_for_15() {
+    assertThat(counter.fizzBuzz(15), is(Counter.FIZZ + Counter.BUZZ));
+  }
 }
