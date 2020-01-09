@@ -15,7 +15,7 @@ public class Counter {
       result.append(BUZZ);
     }
     if (position % 7 == 0) {
-      return WHIZZ;
+      result.append(WHIZZ);
     }
     return result.toString();
   }

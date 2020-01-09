@@ -30,7 +30,12 @@ public class CounterTest {
   }
 
   @Test
-  public void return_fizzBuzz_for_15() {
+  public void return_FizzBuzz_for_15() {
     assertThat(counter.fizzBuzz(15), is(Counter.FIZZ + Counter.BUZZ));
+  }
+
+  @Test
+  public void return_FizzBuzz_for_35() {
+    assertThat(counter.fizzBuzz(35), is(Counter.BUZZ + Counter.WHIZZ));
   }
 }
