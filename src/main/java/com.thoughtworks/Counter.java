@@ -4,7 +4,7 @@ public class Counter {
 
   public static final String BUZZ = "Buzz";
   public static final String FIZZ = "Fizz";
-  public static final String WHIZZ = "WHIZZ";
+  public static final String WHIZZ = "Whizz";
 
   public String fizzBuzz(int position) {
     StringBuilder result = new StringBuilder();
