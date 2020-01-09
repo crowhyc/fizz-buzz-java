@@ -13,6 +13,9 @@ public class Counter {
     if (position % 7 == 0) {
       return WHIZZ;
     }
-    return FIZZ;
+    if (position % 3 == 0) {
+      return FIZZ;
+    }
+    return position + "";
   }
 }
