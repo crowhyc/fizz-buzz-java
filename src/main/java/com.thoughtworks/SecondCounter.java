@@ -21,25 +21,11 @@ public class SecondCounter {
                 {
                     add(pos -> switchRoleSwitch(pos, 7, role7Switch));
                     add(pos -> switchRoleSwitch(pos, 5, role6Switch, role7Switch));
-                    add(
-                            pos -> {
-                                switchRoleSwitch(pos, 3, role5Switch, role6Switch);
-                                if (role5Switch.isOff()) {
-                                    return FIZZ;
-                                }
-                                return EMPTY_STR;
-                            });
-                    add(
-                            pos ->
-                                    pos.isDivisible(3) && role5Switch.isOn() && role6Switch.isOn()
-                                            ? FIZZ
-                                            : EMPTY_STR);
-                    add(
-                            pos ->
-                                    pos.isDivisible(5) && role5Switch.isOn() && role7Switch.isOn()
-                                            ? BUZZ
-                                            : EMPTY_STR);
-                    add(pos -> pos.isDivisible(7) && role5Switch.isOn() ? WHIZZ : EMPTY_STR);
+                    add(pos -> switchRoleSwitch(pos, 3, role5Switch, role6Switch));
+                    add(pos -> role5Switch.isOff() ? FIZZ : EMPTY_STR);
+                    add(pos -> makeStringByDivisible(pos, 3, FIZZ, role5Switch, role6Switch));
+                    add(pos -> makeStringByDivisible(pos, 5, BUZZ, role7Switch));
+                    add(pos -> makeStringByDivisible(pos, 7, WHIZZ, role5Switch));
                 }
             };
 
@@ -48,6 +34,13 @@ public class SecondCounter {
         String result =
                 ruleList.stream().map(func -> func.apply(pos)).collect(Collectors.joining());
         return result.length() > 0 ? result : pos.getPos();
+    }
+
+    private String makeStringByDivisible(
+            Pos pos, int num, String resultStr, RoleSwitch... roleSwitchs) {
+        return pos.isDivisible(num) && Arrays.stream(roleSwitchs).allMatch(RoleSwitch::isOn)
+                ? resultStr
+                : EMPTY_STR;
     }
 
     private String switchRoleSwitch(
