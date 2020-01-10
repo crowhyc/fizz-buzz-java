@@ -18,8 +18,11 @@ public class SecondCounter {
         if (pos.isDivisible(7)) {
             result += WHIZZ;
         }
-        if (result.length() == 0) {
+        if (pos.isContains(3)) {
+            return FIZZ;
+        }
 
+        if (result.length() == 0) {
             return pos.getPos();
         }
         return result;

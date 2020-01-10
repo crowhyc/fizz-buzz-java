@@ -34,4 +34,9 @@ public class CounterTest2 {
                 secondCounter.fizzBuzz(Pos.of(105)),
                 is(SecondCounter.FIZZ + SecondCounter.BUZZ + SecondCounter.WHIZZ));
     }
+
+    @Test
+    public void return_Fizz_for_13() {
+        assertThat(secondCounter.fizzBuzz(Pos.of(13)), is(SecondCounter.FIZZ));
+    }
 }

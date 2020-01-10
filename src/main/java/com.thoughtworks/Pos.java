@@ -18,4 +18,8 @@ public class Pos {
         pos.num = num;
         return pos;
     }
+
+    public boolean isContains(int checkContainNum) {
+        return (num + "").contains(checkContainNum + "");
+    }
 }
