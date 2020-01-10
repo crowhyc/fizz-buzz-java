@@ -10,7 +10,7 @@ public class CounterTest2 {
 
     @Test
     public void return_Fizz_for_3() {
-        assertThat(secondCounter.FizzBuzz(3), is("Fizz"));
+        assertThat(secondCounter.FizzBuzz(3), is(SecondCounter.FIZZ));
     }
 
     @Test
@@ -18,4 +18,8 @@ public class CounterTest2 {
         assertThat(secondCounter.FizzBuzz(4), is("4"));
     }
 
+    @Test
+    public void return_Buzz_for_5() {
+        assertThat(secondCounter.FizzBuzz(5), is(SecondCounter.BUZZ));
+    }
 }
