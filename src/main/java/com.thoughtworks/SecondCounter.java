@@ -1,6 +1,7 @@
 package com.thoughtworks;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -11,82 +12,80 @@ public class SecondCounter {
     public static final String BUZZ = "Buzz";
     public static final String WHIZZ = "Whizz";
     public static final String EMPTY_STR = "";
-    private boolean role5Switch;
-    private boolean role6Switch;
-    private boolean role7Switch;
+    private RoleSwitch role5Switch = new RoleSwitch();
+    private RoleSwitch role6Switch = new RoleSwitch();
+    private RoleSwitch role7Switch = new RoleSwitch();
 
-    private List<CounterRule> ruleList =
-            new ArrayList<CounterRule>() {
+    private List<Function<Pos, String>> ruleList =
+            new ArrayList<Function<Pos, String>>() {
                 {
+                    add(pos -> switchRoleSwitch(pos, 7, role7Switch));
+                    add(pos -> switchRoleSwitch(pos, 5, role6Switch, role7Switch));
                     add(
-                            new CounterRule(
-                                    pos -> {
-                                        if (pos.isContains(7)) {
-                                            role7Switch = false;
-                                        }
-                                        return EMPTY_STR;
-                                    }));
+                            pos -> {
+                                switchRoleSwitch(pos, 3, role5Switch, role6Switch);
+                                if (role5Switch.isOff()) {
+                                    return FIZZ;
+                                }
+                                return EMPTY_STR;
+                            });
                     add(
-                            new CounterRule(
-                                    pos -> {
-                                        if (pos.isContains(5) && role7Switch) {
-                                            role6Switch = false;
-                                        }
-                                        return EMPTY_STR;
-                                    }));
+                            pos ->
+                                    pos.isDivisible(3) && role5Switch.isOn() && role6Switch.isOn()
+                                            ? FIZZ
+                                            : EMPTY_STR);
                     add(
-                            new CounterRule(
-                                    pos -> {
-                                        if (pos.isContains(3) && role6Switch) {
-                                            role5Switch = false;
-                                            return FIZZ;
-                                        } else {
-                                            return EMPTY_STR;
-                                        }
-                                    }));
-                    add(
-                            new CounterRule(
-                                    pos ->
-                                            pos.isDivisible(3) && role5Switch && role6Switch
-                                                    ? FIZZ
-                                                    : EMPTY_STR));
-                    add(
-                            new CounterRule(
-                                    pos ->
-                                            pos.isDivisible(5) && role5Switch && role7Switch
-                                                    ? BUZZ
-                                                    : EMPTY_STR));
-                    add(
-                            new CounterRule(
-                                    pos -> pos.isDivisible(7) && role5Switch ? WHIZZ : EMPTY_STR));
+                            pos ->
+                                    pos.isDivisible(5) && role5Switch.isOn() && role7Switch.isOn()
+                                            ? BUZZ
+                                            : EMPTY_STR);
+                    add(pos -> pos.isDivisible(7) && role5Switch.isOn() ? WHIZZ : EMPTY_STR);
                 }
             };
 
     public String fizzBuzz(Pos pos) {
-        initSwitch();
+        resetSwitch();
         String result =
-                ruleList.stream()
-                        .map(counterRule -> counterRule.calcRule(pos))
-                        .collect(Collectors.joining());
+                ruleList.stream().map(func -> func.apply(pos)).collect(Collectors.joining());
         return result.length() > 0 ? result : pos.getPos();
     }
 
-    private void initSwitch() {
-        role5Switch = true;
-        role6Switch = true;
-        role7Switch = true;
+    private String switchRoleSwitch(
+            Pos pos, int num, RoleSwitch ownSwitch, RoleSwitch... relateSwitch) {
+        boolean canBeTurnOff = Arrays.stream(relateSwitch).allMatch(ret -> ret.state);
+        if (pos.isContains(num) && canBeTurnOff) {
+            ownSwitch.turnOff();
+        }
+        return EMPTY_STR;
     }
 
-    class CounterRule {
+    private void resetSwitch() {
+        role5Switch.turnOn();
+        role6Switch.turnOn();
+        role7Switch.turnOn();
+    }
 
-        private Function<Pos, String> ruleFunc;
+    class RoleSwitch {
+        private boolean state;
 
-        public CounterRule(Function<Pos, String> ruleFunc) {
-            this.ruleFunc = ruleFunc;
+        public RoleSwitch() {
+            this.state = true;
         }
 
-        public String calcRule(Pos pos) {
-            return ruleFunc.apply(pos);
+        public void turnOff() {
+            this.state = false;
+        }
+
+        public void turnOn() {
+            this.state = true;
+        }
+
+        public boolean isOn() {
+            return this.state;
+        }
+
+        public boolean isOff() {
+            return !isOn();
         }
     }
 }
