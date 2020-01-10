@@ -37,8 +37,8 @@ public class SecondCounter {
     }
 
     private String makeStringByDivisible(
-            Pos pos, int num, String resultStr, RoleSwitch... roleSwitchs) {
-        return pos.isDivisible(num) && Arrays.stream(roleSwitchs).allMatch(RoleSwitch::isOn)
+            Pos pos, int num, String resultStr, RoleSwitch... roleSwitches) {
+        return pos.isDivisible(num) && Arrays.stream(roleSwitches).allMatch(RoleSwitch::isOn)
                 ? resultStr
                 : EMPTY_STR;
     }
