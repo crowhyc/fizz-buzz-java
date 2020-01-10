@@ -5,17 +5,23 @@ public class SecondCounter {
     public static final String FIZZ = "Fizz";
     public static final String BUZZ = "Buzz";
     public static final String WHIZZ = "WHIZZ";
+    public static final String EMPTY_STR = "";
 
     public String fizzBuzz(Pos pos) {
+        String result = EMPTY_STR;
         if (pos.isDivisible(3)) {
-            return FIZZ;
+            result += FIZZ;
         }
         if (pos.isDivisible(5)) {
-            return BUZZ;
+            result += BUZZ;
         }
         if (pos.isDivisible(7)) {
-            return WHIZZ;
+            result += WHIZZ;
         }
-        return pos.getPos();
+        if (result.length() == 0) {
+
+            return pos.getPos();
+        }
+        return result;
     }
 }

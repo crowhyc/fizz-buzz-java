@@ -27,4 +27,11 @@ public class CounterTest2 {
     public void return_Whizz_for_7() {
         assertThat(secondCounter.fizzBuzz(Pos.of(7)), is(SecondCounter.WHIZZ));
     }
+
+    @Test
+    public void return_FizzBuzzWhizz_for_105() {
+        assertThat(
+                secondCounter.fizzBuzz(Pos.of(105)),
+                is(SecondCounter.FIZZ + SecondCounter.BUZZ + SecondCounter.WHIZZ));
+    }
 }
