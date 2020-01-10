@@ -9,10 +9,11 @@ public class SecondCounter {
 
     public static final String FIZZ = "Fizz";
     public static final String BUZZ = "Buzz";
-    public static final String WHIZZ = "WHIZZ";
+    public static final String WHIZZ = "Whizz";
     public static final String EMPTY_STR = "";
-    private boolean role4Switch;
     private boolean role5Switch;
+    private boolean role6Switch;
+    private boolean role7Switch;
 
     private List<CounterRule> ruleList =
             new ArrayList<CounterRule>() {
@@ -20,16 +21,24 @@ public class SecondCounter {
                     add(
                             new CounterRule(
                                     pos -> {
-                                        if (pos.isContains(5)) {
-                                            role5Switch = false;
+                                        if (pos.isContains(7)) {
+                                            role7Switch = false;
                                         }
                                         return EMPTY_STR;
                                     }));
                     add(
                             new CounterRule(
                                     pos -> {
-                                        if (pos.isContains(3) && role5Switch) {
-                                            role4Switch = false;
+                                        if (pos.isContains(5) && role7Switch) {
+                                            role6Switch = false;
+                                        }
+                                        return EMPTY_STR;
+                                    }));
+                    add(
+                            new CounterRule(
+                                    pos -> {
+                                        if (pos.isContains(3) && role6Switch) {
+                                            role5Switch = false;
                                             return FIZZ;
                                         } else {
                                             return EMPTY_STR;
@@ -38,15 +47,18 @@ public class SecondCounter {
                     add(
                             new CounterRule(
                                     pos ->
-                                            pos.isDivisible(3) && role4Switch && role5Switch
+                                            pos.isDivisible(3) && role5Switch && role6Switch
                                                     ? FIZZ
                                                     : EMPTY_STR));
                     add(
                             new CounterRule(
-                                    pos -> pos.isDivisible(5) && role4Switch ? BUZZ : EMPTY_STR));
+                                    pos ->
+                                            pos.isDivisible(5) && role5Switch && role7Switch
+                                                    ? BUZZ
+                                                    : EMPTY_STR));
                     add(
                             new CounterRule(
-                                    pos -> pos.isDivisible(7) && role4Switch ? WHIZZ : EMPTY_STR));
+                                    pos -> pos.isDivisible(7) && role5Switch ? WHIZZ : EMPTY_STR));
                 }
             };
 
@@ -60,8 +72,9 @@ public class SecondCounter {
     }
 
     private void initSwitch() {
-        role4Switch = true;
         role5Switch = true;
+        role6Switch = true;
+        role7Switch = true;
     }
 
     class CounterRule {

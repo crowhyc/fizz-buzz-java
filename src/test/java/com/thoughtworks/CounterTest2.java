@@ -22,8 +22,8 @@ public class CounterTest2 {
     }
 
     @Test
-    public void return_Buzz_for_5() {
-        assertThat(secondCounter.fizzBuzz(Pos.of(5)), is(BUZZ));
+    public void return_Buzz_for_10() {
+        assertThat(secondCounter.fizzBuzz(Pos.of(10)), is(BUZZ));
     }
 
     @Test
@@ -42,7 +42,12 @@ public class CounterTest2 {
     }
 
     @Test
-    public void return_BuzzWhizz_for_35() {
-        assertThat(secondCounter.fizzBuzz(Pos.of(35)), is(BUZZ + WHIZZ));
+    public void return_BuzzWhizz_for_150() {
+        assertThat(secondCounter.fizzBuzz(Pos.of(140)), is(BUZZ + WHIZZ));
+    }
+
+    @Test
+    public void return_Fizz_for_75() {
+        assertThat(secondCounter.fizzBuzz(Pos.of(75)), is(FIZZ));
     }
 }
