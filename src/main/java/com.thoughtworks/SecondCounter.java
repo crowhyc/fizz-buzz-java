@@ -6,16 +6,16 @@ public class SecondCounter {
     public static final String BUZZ = "Buzz";
     public static final String WHIZZ = "WHIZZ";
 
-    public String fizzBuzz(Integer pos) {
-        if (pos % 3 == 0) {
+    public String fizzBuzz(Pos pos) {
+        if (pos.isDivisible(3)) {
             return FIZZ;
         }
-        if (pos % 5 == 0) {
+        if (pos.isDivisible(5)) {
             return BUZZ;
         }
-        if (pos % 7 == 0) {
+        if (pos.isDivisible(7)) {
             return WHIZZ;
         }
-        return pos.toString();
+        return pos.getPos();
     }
 }
